@@ -24,6 +24,8 @@ public class Register extends HttpServlet {
         user.setPassword(req.getParameter("password"));
         user.setEmail(req.getParameter("email"));
         user.setPhone(req.getParameter("phone"));
+        user.setSecretQuestion(req.getParameter("secretQuestion"));
+        user.setSecretAnswer(req.getParameter("secretAnswer"));
         user.setRole(2);
         user.setCreatedDate(new java.sql.Date(new java.util.Date().getTime()));
         try {

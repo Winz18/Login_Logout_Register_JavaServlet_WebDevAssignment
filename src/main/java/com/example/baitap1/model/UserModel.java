@@ -11,6 +11,24 @@ public class UserModel implements Serializable {
     protected int role;
     protected String phone;
     protected Date createdDate;
+    protected String secretQuestion;
+    protected String secretAnswer;
+
+    public String getSecretQuestion() {
+        return secretQuestion;
+    }
+
+    public void setSecretQuestion(String secretQuestion) {
+        this.secretQuestion = secretQuestion;
+    }
+
+    public String getSecretAnswer() {
+        return secretAnswer;
+    }
+
+    public void setSecretAnswer(String secretAnswer) {
+        this.secretAnswer = secretAnswer;
+    }
 
     public void setId(int id) {
         this.id = id;

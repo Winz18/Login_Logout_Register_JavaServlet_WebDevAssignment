@@ -33,6 +33,8 @@ public class UserDaoImp implements UserDaoInt {
                 user.setRole(rs.getInt("role"));
                 user.setPhone(rs.getString("phone"));
                 user.setCreatedDate(rs.getDate("created_date"));
+                user.setSecretQuestion(rs.getString("secret_question"));
+                user.setSecretAnswer(rs.getString("secret_answer"));
                 return user;
             }
         } catch (SQLException e) {
@@ -43,7 +45,7 @@ public class UserDaoImp implements UserDaoInt {
 
     @Override
     public boolean addUser(UserModel user) {
-        String sql = "INSERT INTO baitap1 (username, password, email, role, phone, created_date) VALUES(?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO baitap1 (username, password, email, role, phone, created_date, secret_question, secret_answer) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, user.getUsername());
@@ -52,6 +54,26 @@ public class UserDaoImp implements UserDaoInt {
             ps.setInt(4, user.getRole());
             ps.setString(5, user.getPhone());
             ps.setDate(6, new java.sql.Date(user.getCreatedDate().getTime()));
+            ps.setString(7, user.getSecretQuestion());
+            ps.setString(8, user.getSecretAnswer());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateUser(UserModel user) {
+        String sql = "UPDATE baitap1 SET password = ?, email = ?, phone = ?, secret_question = ?, secret_answer = ? WHERE username = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, user.getPassword());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPhone());
+            ps.setString(4, user.getSecretQuestion());
+            ps.setString(5, user.getSecretAnswer());
+            ps.setString(6, user.getUsername());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
