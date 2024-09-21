@@ -2,7 +2,7 @@ package com.example.baitap1.controller;
 
 import com.example.baitap1.dao.implement.UserDaoImp;
 import com.example.baitap1.model.UserModel;
-
+import com.example.baitap1.controller.Logout;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -36,7 +36,10 @@ public class ForgotPasswordServlet extends HttpServlet {
         if (user != null && secretQuestion.equals(user.getSecretQuestion()) && secretAnswer.equals(user.getSecretAnswer())) {
             user.setPassword(newPassword);
             userDao.updateUser(user);
-            response.sendRedirect("views/login.jsp");
+            // logout
+            request.getSession().removeAttribute("user");
+            request.getSession().invalidate();
+            response.sendRedirect(request.getContextPath() + "/login");
         } else {
             // Show error message
             response.getWriter().println("Invalid details. Please try again.");
